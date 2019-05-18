@@ -1,0 +1,161 @@
+def afficher1E (texte,background,DG,HB):
+        font = pygame.font.Font(None, 40)#police et taille
+        text = font.render(texte, 1, (1, 50, 10))
+        textpos = text.get_rect()
+        textpos.centerx = DG# D G 
+        textpos.centery = HB# H B
+        background.blit(text, textpos)
+#fonction Quiz
+def quest(L):
+    nombre_de_question=0  
+    compteur = 0
+    Q=""
+    backgroundQCM = pygame.image.load("Fond QCM.jpg").convert()
+    backgroundQCM=pygame.transform.scale(backgroundQCM,(1150,700))   
+    for n in range (len(L)):
+        background=backgroundQCM
+        afficher1E(L[0][n],backgroundQCM,500,70)
+        afficher1E(L[1][n],backgroundQCM,300,250)
+        afficher1E(L[2][n],backgroundQCM,800,250)
+        afficher1E(L[3][n],backgroundQCM,300,500)
+        afficher1E(L[4][n],backgroundQCM,800,500)
+        
+        afficher1E("quel(s) réponce choississez-vous ? (rentrer votre réponce dans l'IDEL)",backgroundQCM,500,650)
+        pygame.display.flip()
+        Q=str(input("quel(s) réponce choississez-vous ?\n" ))
+
+
+        if Q == L[5][n]:
+            background=backgroundsolution
+            pygame.display.flip()
+            afficher1E("Bravo! Bonne vous avez trouvé la bonne réponse",500,350)
+            compteur = compteur +1
+        else:
+            backgroundsolution = pygame.image.load("Fond solution.jpg").convert()
+            backgroundsolution=pygame.transform.scale(backgroundsolution,(1150,700))
+            afficher1E("Mauvaise réponse... Voici la bonne réponse (pour continué tapé oui dans l'IDEL):",backgroundsolution,500,100)
+            afficher1E(L[6][n],backgroundsolution,500,300)
+            background=backgroundsolution
+            pygame.display.flip()
+            S=str(input("On continue ?\n" ))
+            
+            
+def main():
+# Initialisation de la fenêtre d'affichage
+    pygame.init()
+    screen = pygame.display.set_mode((1150,700))
+    pygame.display.set_caption('Programme Pygame de Astou , Nora , Joris et Srivaidehi')
+   
+
+    # Remplissage de l'arrière-plan
+    background = pygame.image.load("Fond ADN.jpg").convert()
+    backgroundIntro = pygame.image.load("Fond Intro.png").convert()
+    backgroundIntro=pygame.transform.scale(backgroundIntro,(1150,700))
+    backgroundQCM = pygame.image.load("Fond QCM.jpg").convert()
+    backgroundQCM=pygame.transform.scale(backgroundQCM,(1150,700))
+    backgroundsolution = pygame.image.load("Fond solution.jpg").convert()
+    backgroundsolution=pygame.transform.scale(backgroundsolution,(1150,700))
+    screen.blit(background, (0,0))
+    pygame.display.flip()
+
+    #afficher du texte
+    #Liste de texte
+    
+    Affiche1=["Salut tout le monde","Bienvenue dans le Généquizz !",]
+    #Titre entrer
+    
+    Affiche2=["Bienvenue dans le Généquizz !","Sur quel thème souhaitez-vous être testé.e ?"]
+    Affiche3=["1.Transcription","2.Croisements Génétiques","3.Division Cellulaire","4.Interrogez-moi sur tout !"," 5. Je souhaite ajouter une question à un thème"]
+    #Présentation et choix du chapitre
+
+
+    #Liste du Chapitre 1:
+
+    #Liste Question
+    Liste_Question_Transcription = ["Quels sont les types d'ARN ?","Quel est le nombre des acides aminés ?", "Quelles sont les trois étapes de la synthèse des protéines ?", "De quoi un nucléotide d'ADN est-il composé ?", "Le chromosome a la fin de la méiose possède :", "Quel est le sens de réplication de l'ADN ?", "Combien y a-t-il de types d'élèments transposables?", "Un transpisition conservative est :", "Un transposition réplicative est :", "Les éléments transposables contribuent à des réarrangements de portions du génome par :"]
+    Liste_Choix1_Transcription=["A)ARNr, ARNt, ARNm, Small ARN","A)220"]
+    Liste_Choix2_Transcription=["B)ARNa, ARNm, ARNc, ARNt","B)20","C)16"]
+    Liste_Choix3_Transcription=["C)ARNm, ARNt, Small and Large ARN, ARNs","C)16"]
+    Liste_Choix4_Transcription=["D)ARNg, ARNs, ARNm, ARMt","D)30"]
+    Liste_Réponses_Transcription = ["A","B","B","C","A","B","B","A","D","A et C"]
+    Liste_Correction_Transcription = ["A)ARNr, ARNt, ARNm, Small ARN","B)20","B)Initiation, élongation, terminaison","C)Une base azotée, un désoxyribose, un groupement phosphate","A)Une chromatide d'ADN double brin", "B)3' → 5'","B)3","A)un transfert d'une séquence d'ADN du site donneur au site accepteur.","D)un élément transposable transféré d'un site à un autre (tout en restant au site original","A)inversion \nC)duplication"]
+
+    #Liste Chapitre 1
+    Transcription=[Liste_Question_Transcription, Liste_Choix1_Transcription, Liste_Choix2_Transcription, Liste_Choix3_Transcription, Liste_Choix4_Transcription, Liste_Réponses_Transcription, Liste_Correction_Transcription]
+
+
+
+    #Liste Chapitre 2:
+    Croisement=[]
+
+    #Liste Chapitre 3:
+    Division=[]
+
+
+
+    #Liste all chap
+    Chapitre=[Transcription, Croisement, Division]
+    
+                                    
+    afficher1E("Entrer (E)",background,500,500)
+    afficher(Affiche1,background,500,33)
+    afficher(Affiche2,backgroundIntro,500,70)
+    afficher(Affiche3,backgroundIntro,500,300)
+
+    
+
+    # Blitter le tout dans la fenêtre
+    screen.blit(background, (0, 0))
+
+    #Variable
+    continuer=1
+    z=0
+      
+    appuyé=False
+    
+# Boucle d'évènements
+    while continuer:
+        for event in pygame.event.get():   #On parcours la liste de tous les événements reçus             
+            if event.type == KEYDOWN:
+                if event.key == K_e:
+                    print("e")
+                    background=backgroundIntro
+                    pygame.display.flip()
+                elif event.key == K_1:
+                    print("1")
+                    quest(Transcription)
+                    
+                    
+                elif event.key == K_2:
+                    print("2")
+                    background=backgroundQCM
+                    pygame.display.flip()
+                elif event.key == K_3:
+                    print("3")
+                    background=backgroundQCM
+                    pygame.display.flip()
+                elif event.key == K_4:
+                    print("4")
+                    background=backgroundQCM
+                    pygame.display.flip()
+                    
+                    
+               
+       
+        screen.blit(background, (0, 0))
+        
+            
+            
+
+        pygame.display.flip()
+
+main()
+        
+       
+
+       
+       
+ 
+ 
+ 
+    
