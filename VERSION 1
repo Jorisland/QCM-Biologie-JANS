@@ -101,7 +101,6 @@ def main():
     afficher(Affiche1,background,500,33)
     afficher(Affiche2,backgroundIntro,500,70)
     afficher(Affiche3,backgroundIntro,500,300)
-
     
 
     # Blitter le tout dans la fenêtre
@@ -109,10 +108,7 @@ def main():
 
     #Variable
     continuer=1
-    z=0
-      
-    appuyé=False
-    
+        
 # Boucle d'évènements
     while continuer:
         for event in pygame.event.get():   #On parcours la liste de tous les événements reçus             
